@@ -17,11 +17,12 @@ import javafx.stage.Stage;
 public class MainApp extends Application {
 	
 	private ObservableList<Event> eventData = FXCollections.observableArrayList();
+	public void addEvent(Event event) { eventData.add(event); }
 
 	public MainApp() {
-		eventData.add(new Event("£ódŸ", "chujow sto do zrobienia mam"));
-		eventData.add(new Event("Wawa", "chujow dwiescie do zrobienia mam"));
-		eventData.add(new Event("Kraków", "lubie placuszki i male cycuszki"));
+		eventData.add(new Event("£ódŸ", "sto do zrobienia mam"));
+		eventData.add(new Event("Wawa", "dwiescie do zrobienia mam"));
+		eventData.add(new Event("Kraków", "lubie placuszki"));
 	}
 	
     public ObservableList<Event> getPersonData() {

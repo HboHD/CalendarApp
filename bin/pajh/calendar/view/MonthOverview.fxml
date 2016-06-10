@@ -22,7 +22,7 @@
             </DatePicker>
             <TableView fx:id="eventTable" prefHeight="355.0" prefWidth="290.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="Data" />
+                <TableColumn fx:id="dateColumn" prefWidth="75.0" text="Data" />
                 <TableColumn fx:id="placeColumn" prefWidth="75.0" text="Miejsce" />
                   <TableColumn fx:id="descColumn" prefWidth="139.0" text="Opis" />
               </columns>

@@ -1,5 +1,7 @@
 package pajh.calendar.view;
 
+import java.time.LocalDate;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -14,6 +16,8 @@ public class MonthOverviewController {
     private TableColumn<Event, String> placeColumn;
     @FXML
     private TableColumn<Event, String> descColumn;
+    @FXML
+    private TableColumn<Event, LocalDate> dateColumn;
 
     @FXML
     private Label placeLabel;
@@ -41,6 +45,7 @@ public class MonthOverviewController {
         // Initialize the person table with the two columns.
         placeColumn.setCellValueFactory(cellData -> cellData.getValue().getPlace());
         descColumn.setCellValueFactory(cellData -> cellData.getValue().getDesc());
+        dateColumn.setCellValueFactory(cellData -> cellData.getValue().getTime());
     }
 
     /**
