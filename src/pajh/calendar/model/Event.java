@@ -2,9 +2,7 @@ package pajh.calendar.model;
 
 import java.time.LocalDate;
 
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -16,14 +14,12 @@ public class Event {
 	private ObjectProperty<LocalDate> time;
 	
 	public Event() {
-		this(null,null);
 	}
 
-	public Event(String place, String desc) {
+	public Event(String place, String desc, LocalDate date) {
 		this.place = new SimpleStringProperty(place);
 		this.desc = new SimpleStringProperty(desc);
-		
-		this.time = new SimpleObjectProperty<LocalDate>(LocalDate.of(2000, 2, 14));
+		this.time = new SimpleObjectProperty<LocalDate>(date);
 	}
 
 	public StringProperty getPlace() {
@@ -48,5 +44,29 @@ public class Event {
 
 	public void setTime(ObjectProperty<LocalDate> time) {
 		this.time = time;
+	}
+	
+	public void setTimeLD(LocalDate time) {
+		this.time.set(time);;
+	}
+
+	public void setDesc(String text) {
+		this.desc.set(text);		
+	}
+
+	public void setPlace(String text) {
+		this.place.set(text);		
+	}
+	
+	public LocalDate getTimeLD(){
+		return this.time.get();
+	}
+
+	public String getDescString() {
+		return this.desc.get();
+	}
+
+	public String getPlaceString() {
+		return this.place.get();
 	}
 }

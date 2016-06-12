@@ -4,6 +4,7 @@ import pajh.calendar.model.*;
 import pajh.calendar.view.*;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,6 +13,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class MainApp extends Application {
@@ -20,12 +22,12 @@ public class MainApp extends Application {
 	public void addEvent(Event event) { eventData.add(event); }
 
 	public MainApp() {
-		eventData.add(new Event("£ódŸ", "sto do zrobienia mam"));
-		eventData.add(new Event("Wawa", "dwiescie do zrobienia mam"));
-		eventData.add(new Event("Kraków", "lubie placuszki"));
+		eventData.add(new Event("£ódŸ", "Miliony rzeczy do zrobienia", LocalDate.of(1995, 03, 02)));
+		eventData.add(new Event("Wawa", "#rzycie #jest #suabe", LocalDate.of(1995, 03, 02)));
+		eventData.add(new Event("Kraków", "lubiê placuszki", LocalDate.of(1995, 03, 02)));
 	}
 	
-    public ObservableList<Event> getPersonData() {
+    public ObservableList<Event> getEventData() {
         return eventData;
     }
 	
@@ -76,6 +78,37 @@ public class MainApp extends Application {
         }
         catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    
+    public boolean showEventEditDialog(Event event) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/EventEditDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edycja wydarzenia");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the person into the controller.
+            EventEditDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setEvent(event);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        } 
+        catch (IOException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 

@@ -10,17 +10,13 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.Pane?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pajh.calendar.view.MonthOverviewController">
    <children>
       <FlowPane prefHeight="400.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="0.0">
          <children>
-            <DatePicker editable="false">
-               <FlowPane.margin>
-                  <Insets bottom="5.0" left="55.0" right="5.0" top="5.0" />
-               </FlowPane.margin>
-            </DatePicker>
-            <TableView fx:id="eventTable" prefHeight="355.0" prefWidth="290.0">
+            <TableView fx:id="eventTable" prefHeight="316.0" prefWidth="290.0">
               <columns>
                 <TableColumn fx:id="dateColumn" prefWidth="75.0" text="Data" />
                 <TableColumn fx:id="placeColumn" prefWidth="75.0" text="Miejsce" />
@@ -30,9 +26,27 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </FlowPane.margin>
             </TableView>
+            <Pane prefHeight="25.0" prefWidth="290.0">
+               <children>
+                  <Button id="deleteButton" fx:id="deleteButton" layoutX="69.0" maxHeight="25.0" mnemonicParsing="false" onAction="#handleDeleteEvent" prefHeight="25.0" text="Usuń" />
+                <Button layoutX="9.0" maxHeight="25.0" mnemonicParsing="false" onAction="#handleEditEvent" prefHeight="25.0" text="Edytuj" />
+                  <Button layoutX="123.0" maxHeight="25.0" mnemonicParsing="false" prefHeight="25.0" text="Przypomnienie" />
+               </children>
+               <FlowPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </FlowPane.margin>
+            </Pane>
+            <TextField fx:id="filterField" />
          </children>
       </FlowPane>
-      <FlowPane layoutX="300.0" prefHeight="215.0" prefWidth="300.0" AnchorPane.bottomAnchor="185.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <FlowPane layoutX="300.0" prefHeight="215.0" prefWidth="300.0" AnchorPane.bottomAnchor="185.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <DatePicker fx:id="eventDate" editable="false">
+               <FlowPane.margin>
+                  <Insets bottom="5.0" left="55.0" right="5.0" top="5.0" />
+               </FlowPane.margin>
+            </DatePicker>
+         </children></FlowPane>
       <FlowPane layoutX="300.0" layoutY="215.0" prefHeight="185.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
             <Label text="Miejsce:">
@@ -40,7 +54,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </FlowPane.margin>
             </Label>
-            <TextField prefHeight="25.0" prefWidth="220.0">
+            <TextField fx:id="eventPlace" prefHeight="25.0" prefWidth="220.0">
                <FlowPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </FlowPane.margin>
@@ -53,12 +67,12 @@
                   <Insets bottom="80.0" left="15.0" />
                </padding>
             </Label>
-            <TextArea minHeight="-Infinity" prefHeight="100.0" prefWidth="200.0">
+            <TextArea fx:id="eventDesc" minHeight="-Infinity" prefHeight="100.0" prefWidth="200.0">
                <FlowPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </FlowPane.margin>
             </TextArea>
-            <Button mnemonicParsing="false" text="Utwórz wydarzenie">
+            <Button mnemonicParsing="false" onAction="#handleNewEvent" prefHeight="25.0" text="Utwórz wydarzenie">
                <FlowPane.margin>
                   <Insets bottom="5.0" left="57.0" right="5.0" top="5.0" />
                </FlowPane.margin>
