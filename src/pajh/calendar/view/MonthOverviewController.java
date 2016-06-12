@@ -110,7 +110,7 @@ public class MonthOverviewController {
     @FXML
     private void handleNewEvent() {
         Event tempEvent = new Event(eventPlace.getText(), eventDesc.getText(), eventDate.getValue());
-        eventTable.getItems().add(tempEvent);
+        mainApp.addEvent(tempEvent);
     }
 
     @FXML
@@ -138,7 +138,7 @@ public class MonthOverviewController {
         int selectedIndex = eventTable.getSelectionModel().getSelectedIndex();
 
         if (selectedIndex >= 0 ) {
-        mainApp.getEventData().remove(selectedIndex);
+        mainApp.getEventData().remove(eventTable.getSelectionModel().getSelectedItem());
         }
         else {
             Alert alert = new Alert(AlertType.WARNING);
