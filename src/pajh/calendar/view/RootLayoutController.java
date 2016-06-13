@@ -5,9 +5,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+import pajh.calendar.MainApp;
 
 public class RootLayoutController {
-
+	
+	private MainApp mainApp;
+	
 	@FXML
 	private MenuItem about;
 
@@ -17,6 +20,11 @@ public class RootLayoutController {
      */
     @FXML
     private void initialize() {
+    	
+    }
+    
+    public void setMainApp(MainApp mainApp) {
+        this.mainApp = mainApp;
     }
 
     /**
@@ -38,4 +46,9 @@ public class RootLayoutController {
 
 		alert.showAndWait();
 	}
+	
+    @FXML
+    private void handleDeleteOlderThan (){
+    	mainApp.showDeleteOlderThanDialog();
+    }
 }
