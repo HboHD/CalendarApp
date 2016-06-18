@@ -110,7 +110,7 @@ public class MonthOverviewController {
     @FXML
     private void handleNewEvent() {
         Event tempEvent = new Event(eventPlace.getText(), eventDesc.getText(), eventDate.getValue());
-        mainApp.addEvent(tempEvent);
+        mainApp.getEventData().add(tempEvent);
     }
 
     @FXML
