@@ -1,8 +1,6 @@
 package pajh.calendar.view;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Timer;
+import java.time.LocalDateTime;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -10,8 +8,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import pajh.calendar.model.Event;
 import pajh.calendar.model.Alarm;
+import pajh.calendar.model.Event;
 
 public class SetAlarmDialogController {
 
@@ -24,9 +22,9 @@ public class SetAlarmDialogController {
     @FXML
     private TextField alarmTime;
 
-    private Alarm alarm;
     private Stage dialogStage;
     private Event event;
+    private Alarm alarm;
     private boolean okClicked = false;
 
     /**
@@ -77,8 +75,9 @@ public class SetAlarmDialogController {
         if (isInputValid()) {
         	int intAlarmTime = Integer.parseInt(alarmTime.getText());
         	event.setAlarm(intAlarmTime);
-        	
+
         	alarm = new Alarm(event);
+        	event.setAlarmW(alarm);
         	dialogStage.close();
         }
     }
@@ -91,6 +90,13 @@ public class SetAlarmDialogController {
         dialogStage.close();
     }
 
+    @FXML
+    private void handleErase() {
+    	event.getAlarmW().cancelAlarm();
+    	event.deleteAlarm();
+        dialogStage.close();
+    }
+
     /**
      * Validates the user input in the text fields.
      *
@@ -99,8 +105,18 @@ public class SetAlarmDialogController {
     private boolean isInputValid() {
         String errorMessage = "";
 
-        if ( !(alarmTime.getText().matches("[0-9]*")) || alarmTime.getText() == "" ) {
+        if(!(event.getAlarmW() == null)) {
+        	errorMessage += "Juz dodano przypomnienie dla tego wydarzenia. "
+        			+ "Wykup wersje premium aby dodac wiecej niz jedno przypomnienie.";
+        }
+        
+        if( !(alarmTime.getText().matches("[0-9]*")) || alarmTime.getText() == "" ) {
             errorMessage += "Brak wlasciwej daty!\n";
+        }
+
+        if( LocalDateTime.now().isAfter(LocalDateTime.of(event.getDateLD(), event.getTimeLT())
+                .minusMinutes(Integer.parseInt(alarmTime.getText())))) {
+        	errorMessage += "Przypomnienie nale¿y ustawic conajmniej minute od aktualnego czasu";
         }
 
         if (errorMessage.length() == 0) {
@@ -109,8 +125,8 @@ public class SetAlarmDialogController {
             // Show the error message.
             Alert alert = new Alert(AlertType.ERROR);
             alert.initOwner(dialogStage);
-            alert.setTitle("Zla data!");
-            alert.setHeaderText("Prosze wpisac poprawna date.");
+            alert.setTitle("Zle przypomnienie!");
+            alert.setHeaderText("Prosze wpisac poprawny czas przypomnienia.");
             alert.setContentText(errorMessage);
 
             alert.showAndWait();

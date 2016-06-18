@@ -17,6 +17,7 @@ public class Event {
 	private ObjectProperty<LocalDate> date;
 	private ObjectProperty<LocalTime> time;
 	private IntegerProperty alarm;
+	private Alarm alarmW;
 	
 	public Event() {
 	}
@@ -27,6 +28,18 @@ public class Event {
 		this.date = new SimpleObjectProperty<LocalDate>(date);
 		this.time = new SimpleObjectProperty<LocalTime>(time);
 		this.alarm = new SimpleIntegerProperty();
+		this.alarmW = null;
+	}
+	
+	public void setAlarmW(Alarm alarm) {
+		this.alarmW = alarm;
+	}
+	
+	public void deleteAlarm() {
+		this.alarmW = null;
+	}
+	public Alarm getAlarmW() {
+		return this.alarmW;
 	}
 
 	public StringProperty getPlace() {
@@ -103,6 +116,10 @@ public class Event {
 
 	public LocalTime getTimeLT() {
 		return this.time.get();
+	}
+
+	public String getDescS() {
+		return this.desc.get();
 	}
 	
 	}

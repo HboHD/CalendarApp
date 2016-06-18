@@ -58,5 +58,6 @@
          </padding>
       </GridPane>
       <Label layoutX="255.0" layoutY="138.0" text="minut" />
+      <Button layoutX="85.0" layoutY="172.0" mnemonicParsing="false" onAction="#handleErase" prefHeight="25.0" prefWidth="55.0" text="Usuń" />
    </children>
 </AnchorPane>

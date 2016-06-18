@@ -11,16 +11,16 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 public class Alarm {
-	
+
 	private Timer timer;
 	private Event event;
-	
+
 	public Alarm(Event event){
 		this.event = event;
-		
+
 		Calendar calendar = Calendar.getInstance();
-		calendar.set(event.getDateLD().getYear(), event.getDateLD().getMonthValue(), 
-				event.getDateLD().getDayOfMonth(), event.getTimeLT().getHour(), 
+		calendar.set(event.getDateLD().getYear(), event.getDateLD().getMonthValue(),
+				event.getDateLD().getDayOfMonth(), event.getTimeLT().getHour(),
 				event.getTimeLT().getMinute(), 0);
 		calendar.add(Calendar.MINUTE, -event.getAlarm().get());
 		calendar.add(Calendar.MONTH, -1);
@@ -28,6 +28,16 @@ public class Alarm {
 
 		timer = new Timer();
 		timer.schedule(new RemindTask(), time);
+	}
+
+	public Alarm() {
+		this.timer = null;
+		this.event = null;
+	}
+
+	public void cancelAlarm () {
+		timer.cancel();
+		timer.purge();
 	}
 
     class RemindTask extends TimerTask {
@@ -41,9 +51,10 @@ public class Alarm {
         			alert.setContentText("Dla wydarzenia: " + event.getDescString()
         			+ ", w miejscu: " + event.getPlaceString() + "\nData i czas: "
         			+ event.getDateLD().toString() + " " + event.getTimeLT().toString());
-            
+
         			alert.showAndWait();
         			timer.cancel();
+        			timer.purge();
         		}
         	});
         }

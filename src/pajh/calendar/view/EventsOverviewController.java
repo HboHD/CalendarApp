@@ -2,23 +2,24 @@ package pajh.calendar.view;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Timer;
 
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.paint.Color;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import pajh.calendar.MainApp;
 import pajh.calendar.model.Event;
 
-public class MonthOverviewController {
+public class EventsOverviewController {
     @FXML
     private TableView<Event> eventTable;
     @FXML
@@ -40,6 +41,13 @@ public class MonthOverviewController {
     private TextArea eventTime;
 
     @FXML
+    private Label eventAlarmLabel;
+    @FXML
+    private Label eventDescLabel;
+    @FXML
+    private Label eventTimeLabel;
+
+    @FXML
     private Label placeLabel;
     @FXML
     private Label descLabel;
@@ -53,7 +61,7 @@ public class MonthOverviewController {
      * The constructor.
      * The constructor is called before the initialize() method.
      */
-    public MonthOverviewController() {
+    public EventsOverviewController() {
     }
 
     /**
@@ -66,6 +74,9 @@ public class MonthOverviewController {
         placeColumn.setCellValueFactory(cellData -> cellData.getValue().getPlace());
         descColumn.setCellValueFactory(cellData -> cellData.getValue().getDesc());
         dateColumn.setCellValueFactory(cellData -> cellData.getValue().getDate());
+        
+        eventTable.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> showEventDetails(newValue));
     }
 
     /**
@@ -106,6 +117,16 @@ public class MonthOverviewController {
         // 5. Add sorted (and filtered) data to the table.
         eventTable.setItems(sortedData);
     }
+    
+    private void showEventDetails(Event event) {
+		eventDescLabel.setText(event.getDescS());
+		eventTimeLabel.setText(event.getTimeLT().toString());
+		if (event.getAlarmW() == null) {
+			eventAlarmLabel.setText("Brak");
+		} else {
+			eventAlarmLabel.setText("Na " + Integer.toString(event.getAlarm().get()) + " minut przed czasem");
+		}
+    }
 
     @FXML
     private void handleFilterEvent() {
@@ -125,16 +146,15 @@ public class MonthOverviewController {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No Person Selected");
-            alert.setContentText("Please select a person in the table.");
+            alert.setTitle("Brak wybranego wydarzenia");
+            alert.setHeaderText(null);
+            alert.setContentText("Prosze wybrac jakies wydarzenie.");
 
             alert.showAndWait();
         }
         else {
         	mainApp.showEventEditDialog(selectedEvent);
         }
-
     }
 
     @FXML
@@ -146,16 +166,17 @@ public class MonthOverviewController {
             Alert alert = new Alert(AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
             alert.setTitle("Brak wybranego wydarzenia");
+            alert.setHeaderText(null);
             alert.setContentText("Prosze wybrac jakies wydarzenie.");
 
             alert.showAndWait();
         }
         else {
         	mainApp.showSetAlarmDialog(selectedEvent);
+        	showEventDetails(selectedEvent);
         }
-
     }
-    
+
     @FXML
     private void handleDeleteEvent() {
         int selectedIndex = eventTable.getSelectionModel().getSelectedIndex();
@@ -166,9 +187,9 @@ public class MonthOverviewController {
         else {
             Alert alert = new Alert(AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("B³¹d");
-            alert.setHeaderText("Nie wybrano ¿adnego wydarzenia!");
-            alert.setContentText("Prosze wybrac wydarzenie.");
+            alert.setTitle("Brak wybranego wydarzenia");
+            alert.setHeaderText(null);
+            alert.setContentText("Prosze wybrac jakies wydarzenie.");
 
 
             alert.showAndWait();
