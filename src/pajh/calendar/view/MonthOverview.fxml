@@ -41,7 +41,7 @@
                <children>
                   <Button id="deleteButton" fx:id="deleteButton" layoutX="69.0" maxHeight="25.0" mnemonicParsing="false" onAction="#handleDeleteEvent" prefHeight="25.0" text="Usuń" />
                 <Button layoutX="9.0" maxHeight="25.0" mnemonicParsing="false" onAction="#handleEditEvent" prefHeight="25.0" text="Edytuj" />
-                  <Button layoutX="123.0" maxHeight="25.0" mnemonicParsing="false" prefHeight="25.0" text="Przypomnienie" />
+                  <Button layoutX="123.0" maxHeight="25.0" mnemonicParsing="false" onAction="#handleSetAlarmEvent" prefHeight="25.0" text="Przypomnienie" />
                </children>
                <FlowPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

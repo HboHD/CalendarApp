@@ -1,28 +1,30 @@
 package pajh.calendar.view;
 
-import java.time.LocalTime;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Timer;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import pajh.calendar.model.Event;
-import pajh.calendar.util.TimeUtil;
+import pajh.calendar.model.Alarm;
 
-public class EventEditDialogController {
+public class SetAlarmDialogController {
 
     @FXML
-    private TextField eventPlace;
+    private Label dateLabel;
     @FXML
-    private TextArea eventDesc;
+    private Label placeLabel;
     @FXML
-    private DatePicker eventDate;
+    private Label descLabel;
     @FXML
-    private TextField eventTime;
+    private TextField alarmTime;
 
+    private Alarm alarm;
     private Stage dialogStage;
     private Event event;
     private boolean okClicked = false;
@@ -33,6 +35,7 @@ public class EventEditDialogController {
      */
     @FXML
     private void initialize() {
+    	alarmTime.setText("10");
     }
 
     /**
@@ -52,10 +55,9 @@ public class EventEditDialogController {
     public void setEvent(Event event) {
         this.event = event;
 
-        eventPlace.setText(event.getPlaceString());
-        eventDesc.setText(event.getDescString());
-        eventDate.setValue(event.getDateLD());
-        eventTime.setText(event.getTimeLT().toString());
+        placeLabel.setText(event.getPlaceString());
+        descLabel.setText(event.getDescString());
+        dateLabel.setText(event.getDateLD().toString());
     }
 
     /**
@@ -73,13 +75,11 @@ public class EventEditDialogController {
     @FXML
     private void handleOk() {
         if (isInputValid()) {
-            event.setDesc(eventDesc.getText());
-            event.setPlace(eventPlace.getText());
-            event.setDate(eventDate.getValue());
-            event.setTime(LocalTime.parse(eventTime.getText()));
-
-            okClicked = true;
-            dialogStage.close();
+        	int intAlarmTime = Integer.parseInt(alarmTime.getText());
+        	event.setAlarm(intAlarmTime);
+        	
+        	alarm = new Alarm(event);
+        	dialogStage.close();
         }
     }
 
@@ -99,18 +99,8 @@ public class EventEditDialogController {
     private boolean isInputValid() {
         String errorMessage = "";
 
-        if (eventDate.getValue() == null) {
+        if ( !(alarmTime.getText().matches("[0-9]*")) || alarmTime.getText() == "" ) {
             errorMessage += "Brak wlasciwej daty!\n";
-        }
-        if (eventPlace.getText() == null || eventPlace.getText().length() == 0) {
-            errorMessage += "Brak wlasciwego miejsca!\n";
-        }
-        if (eventDesc.getText() == null || eventDesc.getText().length() == 0) {
-            errorMessage += "Brak opisu!\n";
-        }
-        if (!(TimeUtil.validTime(eventTime.getText())) || eventTime.getText() == null ||
-        		eventTime.getText().length() == 0) {
-            errorMessage += "Zly format czasu (hh:mm)!\n";
         }
 
         if (errorMessage.length() == 0) {
@@ -119,8 +109,8 @@ public class EventEditDialogController {
             // Show the error message.
             Alert alert = new Alert(AlertType.ERROR);
             alert.initOwner(dialogStage);
-            alert.setTitle("Niewlasciwe pola");
-            alert.setHeaderText("Prosze poprawic blednie wypelnione pole.");
+            alert.setTitle("Zla data!");
+            alert.setHeaderText("Prosze wpisac poprawna date.");
             alert.setContentText(errorMessage);
 
             alert.showAndWait();

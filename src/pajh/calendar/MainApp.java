@@ -5,6 +5,7 @@ import pajh.calendar.view.*;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,20 +18,20 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class MainApp extends Application {
-	
+
 	private ObservableList<Event> eventData = FXCollections.observableArrayList();
 	public void addEvent(Event event) { eventData.add(event); }
 
 	public MainApp() {
-		eventData.add(new Event("£ódŸ", "Miliony rzeczy do zrobienia", LocalDate.of(1995, 03, 02)));
-		eventData.add(new Event("Wawa", "#rzycie #jest #suabe", LocalDate.of(1995, 03, 02)));
-		eventData.add(new Event("Kraków", "lubiê placuszki", LocalDate.of(1995, 03, 02)));
+		eventData.add(new Event("£ódŸ", "Miliony rzeczy do zrobienia", LocalDate.of(1995, 03, 02), LocalTime.of(12, 00)));
+		eventData.add(new Event("Wawa", "#rzycie #jest #suabe", LocalDate.of(1995, 03, 02), LocalTime.of(12, 00)));
+		eventData.add(new Event("Kraków", "lubiê placuszki", LocalDate.of(2016, 06, 18), LocalTime.of(18, 30)));
 	}
-	
+
     public ObservableList<Event> getEventData() {
         return eventData;
     }
-	
+
 	private Stage primaryStage;
 	private BorderPane rootLayout;
 
@@ -55,10 +56,10 @@ public class MainApp extends Application {
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.setResizable(false);
-            
-            RootLayoutController controller = loader.getController(); 
+
+            RootLayoutController controller = loader.getController();
             controller.setMainApp(this);
-            
+
             primaryStage.show();
         }
         catch (IOException e) {
@@ -75,7 +76,7 @@ public class MainApp extends Application {
 
             // Set month overview into the center of root layout.
             rootLayout.setCenter(monthOverview);
-            
+
             // Give the controller access to the main app.
             MonthOverviewController controller = loader.getController();
             controller.setMainApp(this);
@@ -84,7 +85,7 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
-    
+
     public boolean showEventEditDialog(Event event) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
@@ -109,20 +110,52 @@ public class MainApp extends Application {
             dialogStage.showAndWait();
 
             return controller.isOkClicked();
-        } 
+        }
         catch (IOException e) {
             e.printStackTrace();
             return false;
         }
     }
-    
+
+    public boolean showSetAlarmDialog(Event event) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/SetAlarmDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Przypomnienie");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the person into the controller.
+            SetAlarmDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setEvent(event);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
     public boolean showDeleteOlderThanDialog() {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/DeleteOlderThanDialog.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
-            
+
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Usun wydarzenia starsze ni¿...");
@@ -130,14 +163,14 @@ public class MainApp extends Application {
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
-            
-            DeleteOlderThanDialogController controller = loader.getController();            
+
+            DeleteOlderThanDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
 
             dialogStage.showAndWait();
 
             return controller.isOkClicked();
-        } 
+        }
         catch (IOException e) {
             e.printStackTrace();
             return false;

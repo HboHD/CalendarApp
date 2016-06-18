@@ -1,6 +1,8 @@
 package pajh.calendar.view;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Timer;
 
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -34,6 +36,8 @@ public class MonthOverviewController {
     private TextArea eventDesc;
     @FXML
     private DatePicker eventDate;
+    @FXML
+    private TextArea eventTime;
 
     @FXML
     private Label placeLabel;
@@ -61,7 +65,7 @@ public class MonthOverviewController {
         // Initialize the person table with the two columns.
         placeColumn.setCellValueFactory(cellData -> cellData.getValue().getPlace());
         descColumn.setCellValueFactory(cellData -> cellData.getValue().getDesc());
-        dateColumn.setCellValueFactory(cellData -> cellData.getValue().getTime());
+        dateColumn.setCellValueFactory(cellData -> cellData.getValue().getDate());
     }
 
     /**
@@ -109,7 +113,7 @@ public class MonthOverviewController {
 
     @FXML
     private void handleNewEvent() {
-        Event tempEvent = new Event(eventPlace.getText(), eventDesc.getText(), eventDate.getValue());
+        Event tempEvent = new Event(eventPlace.getText(), eventDesc.getText(), eventDate.getValue(), LocalTime.parse(eventTime.getText()));
         mainApp.getEventData().add(tempEvent);
     }
 
@@ -133,6 +137,25 @@ public class MonthOverviewController {
 
     }
 
+    @FXML
+    private void handleSetAlarmEvent() {
+        Event selectedEvent = eventTable.getSelectionModel().getSelectedItem();
+
+        if (selectedEvent == null) {
+            // Nothing selected.
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("Brak wybranego wydarzenia");
+            alert.setContentText("Prosze wybrac jakies wydarzenie.");
+
+            alert.showAndWait();
+        }
+        else {
+        	mainApp.showSetAlarmDialog(selectedEvent);
+        }
+
+    }
+    
     @FXML
     private void handleDeleteEvent() {
         int selectedIndex = eventTable.getSelectionModel().getSelectedIndex();
