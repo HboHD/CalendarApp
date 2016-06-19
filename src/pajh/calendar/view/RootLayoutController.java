@@ -116,6 +116,8 @@ public class RootLayoutController {
     /**
      * Opens a FileChooser to let the user select a file to export to.
      * Creates connection with database and runs {@link DatabaseUtil#setList}.
+     * 
+     * @throws SQLException
      */
     @FXML
     private void handleExportDatabase() throws SQLException {
@@ -150,6 +152,8 @@ public class RootLayoutController {
      * Opens a FileChooser to let the user select a file to export to.
      * Creates connection with database and runs {@link DatabaseUtil#getList}
      * to save database's content to eventData.
+     * 
+     * @throws SQLException
      */
     @FXML
     private void handleImportDatabase() throws SQLException {

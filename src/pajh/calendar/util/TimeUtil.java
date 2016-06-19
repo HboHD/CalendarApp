@@ -48,7 +48,7 @@ public class TimeUtil {
     /**
      * Checks the String whether it is a valid time.
      *
-     * @param timeString
+     * @param timeString the time as String
      * @return true if the String is a valid time
      */
     public static boolean validTime(String timeString) {

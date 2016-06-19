@@ -50,7 +50,7 @@ public class SetAlarmDialogController {
     /**
      * Sets the event to be edited in the dialog.
      *
-     * @param person
+     * @param event Selected event
      */
     public void setEvent(Event event) {
         this.event = event;
@@ -64,7 +64,6 @@ public class SetAlarmDialogController {
     /**
      * Returns true if the user clicked OK, false otherwise.
      *
-     * @return
      */
     public boolean isOkClicked() {
         return okClicked;

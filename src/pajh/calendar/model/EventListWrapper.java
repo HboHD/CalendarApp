@@ -17,7 +17,7 @@ public class EventListWrapper {
     /**
      * Returns List of type Event.
      * 
-     * @return events List<Event>
+     * @return events List of type Event
      */
     @XmlElement(name = "event")
     public List<Event> getEvents() {
@@ -27,7 +27,7 @@ public class EventListWrapper {
     /**
      * Sets EventListWrapper's List of type Event.
      * 
-     * @param events List<Event> of events
+     * @param events List of type Event
      */
     public void setEvents(List<Event> events) {
         this.events = events;
