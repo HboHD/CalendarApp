@@ -20,6 +20,8 @@ public class SetAlarmDialogController {
     @FXML
     private Label descLabel;
     @FXML
+    private Label timeLabel;
+    @FXML
     private TextField alarmTime;
 
     private Stage dialogStage;
@@ -56,6 +58,7 @@ public class SetAlarmDialogController {
         placeLabel.setText(event.getPlaceString());
         descLabel.setText(event.getDescString());
         dateLabel.setText(event.getDateLD().toString());
+        timeLabel.setText(event.getTimeLT().toString());
     }
 
     /**
@@ -109,7 +112,7 @@ public class SetAlarmDialogController {
         	errorMessage += "Juz dodano przypomnienie dla tego wydarzenia. "
         			+ "Wykup wersje premium aby dodac wiecej niz jedno przypomnienie.";
         }
-        
+
         if( !(alarmTime.getText().matches("[0-9]*")) || alarmTime.getText() == "" ) {
             errorMessage += "Brak wlasciwej daty!\n";
         }

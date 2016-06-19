@@ -8,14 +8,12 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.paint.Color;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import pajh.calendar.MainApp;
 import pajh.calendar.model.Event;
 
@@ -38,7 +36,7 @@ public class EventsOverviewController {
     @FXML
     private DatePicker eventDate;
     @FXML
-    private TextArea eventTime;
+    private TextField eventTime;
 
     @FXML
     private Label eventAlarmLabel;
@@ -74,7 +72,7 @@ public class EventsOverviewController {
         placeColumn.setCellValueFactory(cellData -> cellData.getValue().getPlace());
         descColumn.setCellValueFactory(cellData -> cellData.getValue().getDesc());
         dateColumn.setCellValueFactory(cellData -> cellData.getValue().getDate());
-        
+
         eventTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showEventDetails(newValue));
     }
@@ -117,14 +115,14 @@ public class EventsOverviewController {
         // 5. Add sorted (and filtered) data to the table.
         eventTable.setItems(sortedData);
     }
-    
+
     private void showEventDetails(Event event) {
 		eventDescLabel.setText(event.getDescS());
 		eventTimeLabel.setText(event.getTimeLT().toString());
 		if (event.getAlarmW() == null) {
 			eventAlarmLabel.setText("Brak");
 		} else {
-			eventAlarmLabel.setText("Na " + Integer.toString(event.getAlarm().get()) + " minut przed czasem");
+			eventAlarmLabel.setText(Integer.toString(event.getAlarm().get()) + " minut przed wydarzeniem");
 		}
     }
 

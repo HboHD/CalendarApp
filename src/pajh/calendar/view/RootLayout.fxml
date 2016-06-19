@@ -11,8 +11,13 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-                  <MenuItem fx:id="settings" mnemonicParsing="false" onAction="#handleSettingEvent" text="Settings" />
-              <MenuItem mnemonicParsing="false" text="Close" />
+                  <MenuItem mnemonicParsing="false" text="Otwórz" />
+                  <MenuItem mnemonicParsing="false" text="Zapisz" />
+                  <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+                  <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+                  <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+                  <MenuItem fx:id="settings" mnemonicParsing="false" onAction="#handleSettingEvent" text="Ustawienia" />
+              <MenuItem mnemonicParsing="false" text="Zamknij" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">

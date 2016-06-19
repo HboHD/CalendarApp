@@ -2,17 +2,13 @@ package pajh.calendar.view;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ColorPicker;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import pajh.calendar.MainApp;
 
 public class SettingsDialogController {
 
     @FXML
     private ColorPicker backColor;
     
-    private EventsOverviewController eventsOverview;
-
     private Stage dialogStage;
     private boolean okClicked = false;
 
@@ -47,6 +43,7 @@ public class SettingsDialogController {
      */
     @FXML
     private void handleOk() {
+    	
     	
     	okClicked = true;
     	dialogStage.close();

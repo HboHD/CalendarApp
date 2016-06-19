@@ -49,9 +49,23 @@
                   <Insets />
                </GridPane.margin>
             </Label>
-            <Label fx:id="dateLabel" alignment="CENTER" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <Label fx:id="dateLabel" alignment="CENTER" text="Label" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </Label>
             <Label fx:id="placeLabel" alignment="CENTER" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
             <Label fx:id="descLabel" alignment="CENTER" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <Label prefHeight="17.0" prefWidth="50.0" text="Godzina:" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets left="100.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="timeLabel" text="Label" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets left="160.0" />
+               </GridPane.margin>
+            </Label>
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

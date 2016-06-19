@@ -3,14 +3,13 @@ package pajh.calendar.view;
 import java.io.File;
 import java.sql.SQLException;
 
-import pajh.calendar.util.DatabaseUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.MenuItem;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import pajh.calendar.MainApp;
+import pajh.calendar.util.DatabaseUtil;
 
 public class RootLayoutController {
 
