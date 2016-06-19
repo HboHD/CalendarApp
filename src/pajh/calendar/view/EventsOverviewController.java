@@ -79,6 +79,8 @@ public class EventsOverviewController {
 
     /**
      * Is called by the main application to give a reference back to itself.
+     * Also wrap the ObservableList of events into FilteredList and then
+     * into SortedList to have dynamic filtering possibility with a Listener.
      *
      * @param mainApp
      */
@@ -116,6 +118,11 @@ public class EventsOverviewController {
         eventTable.setItems(sortedData);
     }
 
+    /**
+     * Sets labels content to actual selected event's fields.
+     * 
+     * @param event Selected event
+     */
     private void showEventDetails(Event event) {
 		eventDescLabel.setText(event.getDesc());
 		eventTimeLabel.setText(event.getTime().toString());
@@ -126,16 +133,19 @@ public class EventsOverviewController {
 		}
     }
 
-    @FXML
-    private void handleFilterEvent() {
-    }
-
+    /**
+     * Handler for adding a new event to eventData list.
+     */
     @FXML
     private void handleNewEvent() {
         Event tempEvent = new Event(eventPlace.getText(), eventDesc.getText(), eventDate.getValue(), LocalTime.parse(eventTime.getText()));
         mainApp.getEventData().add(tempEvent);
     }
 
+    /**
+     * Handler for editing an event. Shows error if there is no selected event.
+     * Runs {@link MainApp#showEventEditDialog}.
+     */
     @FXML
     private void handleEditEvent() {
         Event selectedEvent = eventTable.getSelectionModel().getSelectedItem();
@@ -154,7 +164,11 @@ public class EventsOverviewController {
         	mainApp.showEventEditDialog(selectedEvent);
         }
     }
-
+    
+    /**
+     * Handler for setting alarm to an event. Shows error if there is no
+     * selected event. Runs {@link MainApp#showSetAlarmDialog}.
+     */
     @FXML
     private void handleSetAlarmEvent() {
         Event selectedEvent = eventTable.getSelectionModel().getSelectedItem();
@@ -175,6 +189,10 @@ public class EventsOverviewController {
         }
     }
 
+    /**
+     * Handler for deleting event from eventData list. Shows error if there is no
+     * selected event.
+     */
     @FXML
     private void handleDeleteEvent() {
         int selectedIndex = eventTable.getSelectionModel().getSelectedIndex();

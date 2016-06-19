@@ -1,7 +1,6 @@
 package pajh.calendar;
 
 import java.io.BufferedWriter;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,9 +12,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import pajh.calendar.model.EventListWrapper;
-import pajh.calendar.util.DateUtil;
-import pajh.calendar.util.iCalendarFormatUtil;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,6 +24,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import pajh.calendar.model.Event;
+import pajh.calendar.model.EventListWrapper;
+import pajh.calendar.util.iCalendarFormatUtil;
 import pajh.calendar.view.DeleteOlderThanDialogController;
 import pajh.calendar.view.EventEditDialogController;
 import pajh.calendar.view.EventsOverviewController;
@@ -53,7 +51,7 @@ public class MainApp extends Application {
 	public void addEvent(Event event) { eventData.add(event); }
 
 	/**
-	 * MainApp Contructor.
+	 * MainApp construct.
 	 */
 	public MainApp() {
 		eventData.add(new Event("£Ûdü", "Miliony rzeczy do zrobienia", LocalDate.of(1995, 03, 02), LocalTime.of(12, 00)));
@@ -141,7 +139,6 @@ public class MainApp extends Application {
 	 * Method initializing @SettingsDialog. Returns true if OK button was clicked,
 	 * else returns false if exception was thrown.
 	 *
-	 * @return
 	 */
     public boolean showSettingsDialog() {
         try {
@@ -215,7 +212,6 @@ public class MainApp extends Application {
 	 * else returns false if exception was thrown.
 	 *
 	 * @param event Event that we are setting alarm for
-	 * @return
 	 */
     public boolean showSetAlarmDialog(Event event) {
         try {
@@ -252,7 +248,6 @@ public class MainApp extends Application {
 	 * Initialize and show DeletingOlderThanDialog. Returns true if OK button was clicked,
 	 * else returns false if exception was thrown.
 	 *
-	 * @return
 	 */
     public boolean showDeleteOlderThanDialog() {
         try {
@@ -288,7 +283,6 @@ public class MainApp extends Application {
      * The preference is read from the OS specific registry. If no such
      * preference can be found, null is returned.
      *
-     * @return
      */
     public File getEventFilePath() {
         Preferences prefs = Preferences.userNodeForPackage(MainApp.class);

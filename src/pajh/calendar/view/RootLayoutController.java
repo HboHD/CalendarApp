@@ -11,6 +11,10 @@ import javafx.stage.FileChooser;
 import pajh.calendar.MainApp;
 import pajh.calendar.util.DatabaseUtil;
 
+/**
+ * @author Piotrek
+ *
+ */
 public class RootLayoutController {
 
 	private MainApp mainApp;
@@ -29,7 +33,12 @@ public class RootLayoutController {
     private void initialize() {
 
     }
-
+    
+    /**
+     * Is called by the main application to give a reference back to itself.
+     *
+     * @param mainApp
+     */
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }
@@ -70,7 +79,8 @@ public class RootLayoutController {
     }
 
     /**
-     * Opens a FileChooser to let the user select a file to save to. XML or ICS formats may be chosen.
+     * Opens a FileChooser to let the user select a file to save to. 
+     * XML or ICS formats may be chosen.
      */
     @FXML
     private void handleSaveAs() {
@@ -103,6 +113,10 @@ public class RootLayoutController {
         }
     }
 
+    /**
+     * Opens a FileChooser to let the user select a file to export to.
+     * Creates connection with database and runs {@link DatabaseUtil#setList}.
+     */
     @FXML
     private void handleExportDatabase() throws SQLException {
 
@@ -132,6 +146,11 @@ public class RootLayoutController {
         }
     }
 
+    /**
+     * Opens a FileChooser to let the user select a file to export to.
+     * Creates connection with database and runs {@link DatabaseUtil#getList}
+     * to save database's content to eventData.
+     */
     @FXML
     private void handleImportDatabase() throws SQLException {
 
@@ -160,11 +179,18 @@ public class RootLayoutController {
         }
     }
 
+    
+    /**
+     * Handler running {@link MainApp#showSettingsDialog}
+     */
     @FXML
     private void handleSettingEvent() {
     	mainApp.showSettingsDialog();
     }
-
+    
+    /**
+     * Handler showing AboutDialog with application information.
+     */
 	@FXML
     private void handleMenuAboutEvent() {
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -177,6 +203,9 @@ public class RootLayoutController {
 		alert.showAndWait();
 	}
 
+    /**
+     * Handler running {@link MainApp#showDeleteOlderThanDialog}
+     */
     @FXML
     private void handleDeleteOlderThan (){
     	mainApp.showDeleteOlderThanDialog();
