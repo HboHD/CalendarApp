@@ -69,9 +69,9 @@ public class EventsOverviewController {
     @FXML
     private void initialize() {
         // Initialize the person table with the two columns.
-        placeColumn.setCellValueFactory(cellData -> cellData.getValue().getPlace());
-        descColumn.setCellValueFactory(cellData -> cellData.getValue().getDesc());
-        dateColumn.setCellValueFactory(cellData -> cellData.getValue().getDate());
+        placeColumn.setCellValueFactory(cellData -> cellData.getValue().placeProperty());
+        descColumn.setCellValueFactory(cellData -> cellData.getValue().descProperty());
+        dateColumn.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
 
         eventTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showEventDetails(newValue));
@@ -99,7 +99,7 @@ public class EventsOverviewController {
                 // Compare first name and last name of every person with filter text.
                 String lowerCaseFilter = newValue.toLowerCase();
 
-                if (event.getPlaceString().toLowerCase().contains(lowerCaseFilter)) {
+                if (event.getPlace().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
                 }
                 return false; // Does not match.
@@ -117,12 +117,12 @@ public class EventsOverviewController {
     }
 
     private void showEventDetails(Event event) {
-		eventDescLabel.setText(event.getDescS());
-		eventTimeLabel.setText(event.getTimeLT().toString());
-		if (event.getAlarmW() == null) {
+		eventDescLabel.setText(event.getDesc());
+		eventTimeLabel.setText(event.getTime().toString());
+		if (event.getAlarmObject() == null) {
 			eventAlarmLabel.setText("Brak");
 		} else {
-			eventAlarmLabel.setText(Integer.toString(event.getAlarm().get()) + " minut przed wydarzeniem");
+			eventAlarmLabel.setText(Integer.toString(event.alarmProperty().get()) + " minut przed wydarzeniem");
 		}
     }
 

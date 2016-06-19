@@ -52,10 +52,10 @@ public class EventEditDialogController {
     public void setEvent(Event event) {
         this.event = event;
 
-        eventPlace.setText(event.getPlaceString());
-        eventDesc.setText(event.getDescString());
-        eventDate.setValue(event.getDateLD());
-        eventTime.setText(event.getTimeLT().toString());
+        eventPlace.setText(event.getPlace());
+        eventDesc.setText(event.getDesc());
+        eventDate.setValue(event.getDate());
+        eventTime.setText(event.getTime().toString());
     }
 
     /**

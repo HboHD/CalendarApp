@@ -59,6 +59,7 @@ public class MainApp extends Application {
 		initRootLayout();
 
 		showEventOverview();
+		setEventFilePath(null);
 	}
 
     public void initRootLayout() {
@@ -212,6 +213,7 @@ public class MainApp extends Application {
 
             DeleteOlderThanDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
+            controller.setMainApp(this);
 
             dialogStage.showAndWait();
 
@@ -290,8 +292,7 @@ public class MainApp extends Application {
     
     public void saveEventDataToFileXML(File file) {
         try {
-            JAXBContext context = JAXBContext
-                    .newInstance(EventListWrapper.class);
+            JAXBContext context = JAXBContext.newInstance(EventListWrapper.class);
             Marshaller m = context.createMarshaller();
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 

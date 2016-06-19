@@ -3,6 +3,10 @@ package pajh.calendar.model;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import pajh.calendar.util.LocalDateAdapter;
+import pajh.calendar.util.LocalTimeAdapter;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -11,14 +15,14 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Event {
-	
+
 	private StringProperty place;
 	private StringProperty desc;
 	private ObjectProperty<LocalDate> date;
 	private ObjectProperty<LocalTime> time;
 	private IntegerProperty alarm;
 	private Alarm alarmW;
-	
+
 	public Event() {
 	}
 
@@ -30,19 +34,24 @@ public class Event {
 		this.alarm = new SimpleIntegerProperty();
 		this.alarmW = null;
 	}
-	
-	public void setAlarmW(Alarm alarm) {
+
+	public void setAlarm(Alarm alarm) {
 		this.alarmW = alarm;
 	}
-	
+
 	public void deleteAlarm() {
 		this.alarmW = null;
 	}
-	public Alarm getAlarmW() {
+
+	public Alarm getAlarmObject() {
 		return this.alarmW;
 	}
+	
+	public int getAlarm() {
+		return this.alarm.get();
+	}
 
-	public StringProperty getPlace() {
+	public StringProperty placeProperty() {
 		return place;
 	}
 
@@ -50,7 +59,7 @@ public class Event {
 		this.place = place;
 	}
 
-	public StringProperty getDesc() {
+	public StringProperty descProperty() {
 		return desc;
 	}
 
@@ -58,51 +67,48 @@ public class Event {
 		this.desc = desc;
 	}
 
-	public ObjectProperty<LocalDate> getDate() {
+	public ObjectProperty<LocalDate> dateProperty() {
 		return date;
 	}
 
 	public void setDate(ObjectProperty<LocalDate> date) {
 		this.date = date;
 	}
-	
+
 	public void setDate(LocalDate date) {
 		this.date.set(date);
 	}
 
 	public void setDesc(String text) {
-		this.desc.set(text);		
+		this.desc.set(text);
 	}
 
 	public void setPlace(String text) {
-		this.place.set(text);		
+		this.place.set(text);
 	}
-	
-	public LocalDate getDateLD(){
+
+	@XmlJavaTypeAdapter(LocalDateAdapter.class)
+	public LocalDate getDate() {
 		return this.date.get();
 	}
 
-	public String getDescString() {
-		return this.desc.get();
-	}
-
-	public String getPlaceString() {
+	public String getPlace() {
 		return this.place.get();
 	}
 
-	public IntegerProperty getAlarm() {
+	public IntegerProperty alarmProperty() {
 		return alarm;
 	}
 
 	public void setAlarm(IntegerProperty alarm) {
 		this.alarm = alarm;
 	}
-	
+
 	public void setAlarm(int alarm) {
 		this.alarm.set(alarm);
 	}
 
-	public ObjectProperty<LocalTime> getTime() {
+	public ObjectProperty<LocalTime> timeProperty() {
 		return time;
 	}
 
@@ -111,15 +117,16 @@ public class Event {
 	}
 
 	public void setTime(LocalTime time) {
-		this.time.set(time);		
+		this.time.set(time);
 	}
 
-	public LocalTime getTimeLT() {
+	@XmlJavaTypeAdapter(LocalTimeAdapter.class)
+	public LocalTime getTime() {
 		return this.time.get();
 	}
 
-	public String getDescS() {
+	public String getDesc() {
 		return this.desc.get();
 	}
-	
-	}
+
+}

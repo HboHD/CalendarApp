@@ -55,10 +55,10 @@ public class SetAlarmDialogController {
     public void setEvent(Event event) {
         this.event = event;
 
-        placeLabel.setText(event.getPlaceString());
-        descLabel.setText(event.getDescString());
-        dateLabel.setText(event.getDateLD().toString());
-        timeLabel.setText(event.getTimeLT().toString());
+        placeLabel.setText(event.getPlace());
+        descLabel.setText(event.getDesc());
+        dateLabel.setText(event.getDate().toString());
+        timeLabel.setText(event.getTime().toString());
     }
 
     /**
@@ -80,7 +80,7 @@ public class SetAlarmDialogController {
         	event.setAlarm(intAlarmTime);
 
         	alarm = new Alarm(event);
-        	event.setAlarmW(alarm);
+        	event.setAlarm(alarm);
         	dialogStage.close();
         }
     }
@@ -95,7 +95,7 @@ public class SetAlarmDialogController {
 
     @FXML
     private void handleErase() {
-    	event.getAlarmW().cancelAlarm();
+    	event.getAlarmObject().cancelAlarm();
     	event.deleteAlarm();
         dialogStage.close();
     }
@@ -108,7 +108,7 @@ public class SetAlarmDialogController {
     private boolean isInputValid() {
         String errorMessage = "";
 
-        if(!(event.getAlarmW() == null)) {
+        if(!(event.getAlarmObject() == null)) {
         	errorMessage += "Juz dodano przypomnienie dla tego wydarzenia. "
         			+ "Wykup wersje premium aby dodac wiecej niz jedno przypomnienie.";
         }
@@ -117,7 +117,7 @@ public class SetAlarmDialogController {
             errorMessage += "Brak wlasciwej daty!\n";
         }
 
-        if( LocalDateTime.now().isAfter(LocalDateTime.of(event.getDateLD(), event.getTimeLT())
+        if( LocalDateTime.now().isAfter(LocalDateTime.of(event.getDate(), event.getTime())
                 .minusMinutes(Integer.parseInt(alarmTime.getText())))) {
         	errorMessage += "Przypomnienie nale¿y ustawic conajmniej minute od aktualnego czasu";
         }

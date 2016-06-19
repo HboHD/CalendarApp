@@ -63,10 +63,10 @@ public class DatabaseUtil {
 		
 				eventData.forEach(event -> {
     		
-					String place = event.getPlace().toString();
-					Date date = java.sql.Date.valueOf(event.getDateLD());
-					Time time = java.sql.Time.valueOf(event.getTimeLT());
-					String description = event.getDescS();
+					String place = event.placeProperty().toString();
+					Date date = java.sql.Date.valueOf(event.getDate());
+					Time time = java.sql.Time.valueOf(event.getTime());
+					String description = event.getDesc();
     	
 					try {
 						prepStmt.setString(1, place);

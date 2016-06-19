@@ -6,7 +6,7 @@
 
 <AnchorPane prefHeight="100.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pajh.calendar.view.DeleteOlderThanDialogController">
    <children>
-      <DatePicker layoutX="13.0" layoutY="14.0" />
+      <DatePicker fx:id="datePicker" layoutX="13.0" layoutY="14.0" />
       <Button layoutX="35.0" layoutY="50.0" mnemonicParsing="false" onAction="#handleOk" text="OK" />
       <Button layoutX="116.0" layoutY="50.0" mnemonicParsing="false" onAction="#handleCancel" text="Anuluj" />
    </children>

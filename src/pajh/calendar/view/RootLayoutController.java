@@ -33,10 +33,10 @@ public class RootLayoutController {
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }
-    
+
 
     /**
-     * Opens a FileChooser to let the user select an address book to load.
+     * Opens a FileChooser to let the user select XML to load.
      */
     @FXML
     private void handleOpen() {
@@ -70,7 +70,7 @@ public class RootLayoutController {
     }
 
     /**
-     * Opens a FileChooser to let the user select a file to save to.
+     * Opens a FileChooser to let the user select a file to save to. XML or ICS formats may be chosen.
      */
     @FXML
     private void handleSaveAs() {
@@ -92,20 +92,20 @@ public class RootLayoutController {
             if (!file.getPath().endsWith(".xml")) {
                 file = new File(file.getPath() + ".xml");
             }
-            mainApp.saveEventDataToFileXML(file);  
+            mainApp.saveEventDataToFileXML(file);
         }
         else if (file != null && fileChooser.getSelectedExtensionFilter()==extFilter2) {
             // Make sure it has the correct extension
             if (!file.getPath().endsWith(".ics")) {
                 file = new File(file.getPath() + ".ics");
             }
-            mainApp.saveEventDataToFileICS(file);  
+            mainApp.saveEventDataToFileICS(file);
         }
     }
-    
+
     @FXML
-    private void handleImportFromDatabase() throws SQLException {
-    	
+    private void handleExportDatabase() throws SQLException {
+
     	FileChooser fileChooser = new FileChooser();
     	// Set extension filter
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
@@ -131,10 +131,10 @@ public class RootLayoutController {
 			}
         }
     }
-    
+
     @FXML
-    private void handleExportToDatabase() throws SQLException {
-    	
+    private void handleImportDatabase() throws SQLException {
+
     	FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
                 "Plik bazy danych Microsoft Access (*.accdb)", "*.accdb");
@@ -159,28 +159,6 @@ public class RootLayoutController {
 			}
         }
     }
-    
-    @FXML
-    private void handleSaveAsICS() {
-        FileChooser fileChooser = new FileChooser();
-
-        // Set extension filter
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
-                "Pliki ICS (*.ics)", "*.ics");
-        fileChooser.getExtensionFilters().add(extFilter);
-
-        // Show save file dialog
-        File file = fileChooser.showSaveDialog(mainApp.getPrimaryStage());
-
-        if (file != null) {
-            // Make sure it has the correct extension
-            if (!file.getPath().endsWith(".ics")) {
-                file = new File(file.getPath() + ".ics");
-            }
-            mainApp.saveEventDataToFileICS(file);
-        }
-    }
-
 
     @FXML
     private void handleSettingEvent() {
