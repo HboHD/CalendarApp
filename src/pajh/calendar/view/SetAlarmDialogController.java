@@ -48,7 +48,7 @@ public class SetAlarmDialogController {
     }
 
     /**
-     * Sets the person to be edited in the dialog.
+     * Sets the event to be edited in the dialog.
      *
      * @param person
      */
@@ -92,7 +92,11 @@ public class SetAlarmDialogController {
     private void handleCancel() {
         dialogStage.close();
     }
-
+    
+    
+    /**
+     * Called when the user clicks delete.
+     */
     @FXML
     private void handleErase() {
     	event.getAlarmObject().cancelAlarm();

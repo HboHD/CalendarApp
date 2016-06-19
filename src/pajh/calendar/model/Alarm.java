@@ -15,6 +15,14 @@ public class Alarm {
 	private Timer timer;
 	private Event event;
 
+	
+	/**
+	 * Alarm class construct. Gets Event object which it is setting alarm for. 
+	 * Firstly it subtract alarm time (in minutes) from event time and then
+	 * schedule an alarm to fire up.
+	 * 
+	 * @param event
+	 */
 	public Alarm(Event event){
 		this.event = event;
 
@@ -30,16 +38,27 @@ public class Alarm {
 		timer.schedule(new RemindTask(), time);
 	}
 
+    /**
+     * Alarm class construct nulling all fields.
+     */
 	public Alarm() {
 		this.timer = null;
 		this.event = null;
 	}
 
+    /**
+     * Cancels alarm.
+     */
 	public void cancelAlarm () {
 		timer.cancel();
 		timer.purge();
 	}
 
+    /**
+     * Creates a runnable instance of an alarm which waits to be activated as long
+     * as a thread of app is running. When time is up, it shows a dialog with
+     * the alarm and makes a beep sound.
+     */
     class RemindTask extends TimerTask {
         public void run() {
         	Platform.runLater(new Runnable() {

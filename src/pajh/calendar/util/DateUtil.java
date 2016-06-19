@@ -4,9 +4,14 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+
+/**
+ * Helper class for formatting date of type LocalDate to string
+ * and parsing from string to LocalDate.
+ */
 public class DateUtil {
 
-    /** The date pattern that is used for conversion. Change as you wish. */
+    /** The date pattern that is used for conversion. */
     private static final String DATE_PATTERN = "dd.MM.yyyy";
 
     /** The date formatter. */

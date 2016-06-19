@@ -3,6 +3,11 @@ package pajh.calendar.util;
 import pajh.calendar.model.Event;
 import javafx.collections.ObservableList;
 
+
+/**
+ * Helper class formatting ObservableList of type Event to .ics format.
+ *
+ */
 public class iCalendarFormatUtil {
 	
 	public static String ConvertToiCalendarFormat(ObservableList<Event> eventList)

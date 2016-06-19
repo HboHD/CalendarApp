@@ -14,6 +14,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import pajh.calendar.model.EventListWrapper;
+import pajh.calendar.util.DateUtil;
 import pajh.calendar.util.iCalendarFormatUtil;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -35,7 +36,7 @@ import pajh.calendar.view.SetAlarmDialogController;
 import pajh.calendar.view.SettingsDialogController;
 
 /**
- * Glowna klasa aplikacji.
+ * Main app class.
  */
 public class MainApp extends Application {
 
@@ -173,7 +174,7 @@ public class MainApp extends Application {
     }
 
 	/**
-	 * Initialize and show @EventEditDialog. Returns true if OK button was clicked,
+	 * Initialize and show EventEditDialog. Returns true if OK button was clicked,
 	 * else returns false if exception was thrown.
 	 *
 	 * @param event Event we are editing
@@ -210,7 +211,7 @@ public class MainApp extends Application {
     }
 
 	/**
-	 * Initialize and show @SetAlarmDialog. Returns true if OK button was clicked,
+	 * Initialize and show SetAlarmDialog. Returns true if OK button was clicked,
 	 * else returns false if exception was thrown.
 	 *
 	 * @param event Event that we are setting alarm for
@@ -248,7 +249,7 @@ public class MainApp extends Application {
     }
 
 	/**
-	 * Initialize and show @DeletingOlderThanDialog. Returns true if OK button was clicked,
+	 * Initialize and show DeletingOlderThanDialog. Returns true if OK button was clicked,
 	 * else returns false if exception was thrown.
 	 *
 	 * @return
@@ -322,7 +323,7 @@ public class MainApp extends Application {
 
     /**
      * Loads xml file and unmarshal it to @EventListWrapper wrapper, then add events
-     * to @eventData.
+     * to {@link MainApp#eventData}.
      *
      * @param file the file we are opening
      */
@@ -352,7 +353,7 @@ public class MainApp extends Application {
     }
 
     /**
-     * Wraps @eventData into @EventListWrapper wrapper, then marshal it to file.
+     * Wraps {@link MainApp#eventData} into @EventListWrapper wrapper, then marshal it to a file.
      *
      * @param file the file we are saving to
      */
@@ -383,7 +384,7 @@ public class MainApp extends Application {
     }
 
     /**
-     * Using @iCalendarFormatUtil
+     * Using @iCalendarFormatUtil convert eventData to .ics format.
      *
      * @param file the file we are saving to
      */
@@ -406,10 +407,18 @@ public class MainApp extends Application {
         }
     }
 
+    /**
+     * Returns {@link MainApp#primaryStage}.
+     * 
+     * @return primaryStage
+     */
     public Stage getPrimaryStage() {
         return primaryStage;
     }
 
+    /**
+     * Main of the whole app, launches an application.
+     */
 	public static void main(String[] args) {
 		launch(args);
 	}
