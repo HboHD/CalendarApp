@@ -19,10 +19,10 @@ public class iCalendarFormatUtil {
 		for(Event event : eventList)
 		{
 			returnStatement.append(eventPrefix);
-			returnStatement.append("DESCRIPTION:" + event.descProperty()+ "\n");
-			returnStatement.append("DTSTART:" + event.dateProperty().toString().replace("-", "") + "T" +
-					event.timeProperty().toString().replace(":", "").substring(0, 4) + "00\n");
-			returnStatement.append("LOCATION:" + event.placeProperty() + "\n");
+			returnStatement.append("DESCRIPTION:" + event.getDesc()+ "\n");
+			returnStatement.append("DTSTART:" + event.getDate().toString().replace("-", "") + "T" +
+					event.getTime().toString().replace(":", "").substring(0, 4) + "00\n");
+			returnStatement.append("LOCATION:" + event.getPlace() + "\n");
 			returnStatement.append("SEQUENCE:0\n");
 			returnStatement.append(eventSufix);
 		}

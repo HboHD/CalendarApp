@@ -1,6 +1,7 @@
 package pajh.calendar;
 
 import java.io.BufferedWriter;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -33,22 +34,48 @@ import pajh.calendar.view.RootLayoutController;
 import pajh.calendar.view.SetAlarmDialogController;
 import pajh.calendar.view.SettingsDialogController;
 
+/**
+ * Glowna klasa aplikacji.
+ */
 public class MainApp extends Application {
 
+	/**
+	 * Observable list of type Event collecting all saved events.
+	 */
 	private ObservableList<Event> eventData = FXCollections.observableArrayList();
+
+	/**
+	 * Method adding one Event to Observable list of Events.
+	 *
+	 * @param event Event object
+	 */
 	public void addEvent(Event event) { eventData.add(event); }
 
+	/**
+	 * MainApp Contructor.
+	 */
 	public MainApp() {
 		eventData.add(new Event("£ódŸ", "Miliony rzeczy do zrobienia", LocalDate.of(1995, 03, 02), LocalTime.of(12, 00)));
 		eventData.add(new Event("Wawa", "#rzycie #jest #suabe", LocalDate.of(1995, 03, 02), LocalTime.of(12, 00)));
 		eventData.add(new Event("Kraków", "lubiê placuszki", LocalDate.of(2016, 06, 19), LocalTime.of(00, 30)));
 	}
 
+	/**
+	 * Method returning Observable List of Event objects.
+	 *
+	 * @return eventData Observable list of Event type
+	 */
     public ObservableList<Event> getEventData() {
         return eventData;
     }
 
+	/**
+	 * Primary stage of app.
+	 */
 	private Stage primaryStage;
+	/**
+	 * Border pane for bordering app with RootLayout.
+	 */
 	private BorderPane rootLayout;
 
 	@Override
@@ -62,6 +89,9 @@ public class MainApp extends Application {
 		setEventFilePath(null);
 	}
 
+	/**
+	 * Method initializing @RootLayout
+	 */
     public void initRootLayout() {
         try {
             // Load root layout from fxml file.
@@ -84,6 +114,9 @@ public class MainApp extends Application {
         }
     }
 
+	/**
+	 * Initialize and show @EventsOverview.
+	 */
     public void showEventOverview() {
         try {
             // Load month overview.
@@ -103,6 +136,12 @@ public class MainApp extends Application {
         }
     }
 
+	/**
+	 * Method initializing @SettingsDialog. Returns true if OK button was clicked,
+	 * else returns false if exception was thrown.
+	 *
+	 * @return
+	 */
     public boolean showSettingsDialog() {
         try {
             // Load month overview.
@@ -133,6 +172,12 @@ public class MainApp extends Application {
         }
     }
 
+	/**
+	 * Initialize and show @EventEditDialog. Returns true if OK button was clicked,
+	 * else returns false if exception was thrown.
+	 *
+	 * @param event Event we are editing
+	 */
     public boolean showEventEditDialog(Event event) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
@@ -164,6 +209,13 @@ public class MainApp extends Application {
         }
     }
 
+	/**
+	 * Initialize and show @SetAlarmDialog. Returns true if OK button was clicked,
+	 * else returns false if exception was thrown.
+	 *
+	 * @param event Event that we are setting alarm for
+	 * @return
+	 */
     public boolean showSetAlarmDialog(Event event) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
@@ -195,7 +247,12 @@ public class MainApp extends Application {
         }
     }
 
-
+	/**
+	 * Initialize and show @DeletingOlderThanDialog. Returns true if OK button was clicked,
+	 * else returns false if exception was thrown.
+	 *
+	 * @return
+	 */
     public boolean showDeleteOlderThanDialog() {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
@@ -224,12 +281,12 @@ public class MainApp extends Application {
             return false;
         }
     }
-    
+
     /**
-     * Returns the person file preference, i.e. the file that was last opened.
+     * Returns the events file preference, i.e. the file that was last opened.
      * The preference is read from the OS specific registry. If no such
      * preference can be found, null is returned.
-     * 
+     *
      * @return
      */
     public File getEventFilePath() {
@@ -245,7 +302,7 @@ public class MainApp extends Application {
     /**
      * Sets the file path of the currently loaded file. The path is persisted in
      * the OS specific registry.
-     * 
+     *
      * @param file the file or null to remove the path
      */
     public void setEventFilePath(File file) {
@@ -262,7 +319,13 @@ public class MainApp extends Application {
             primaryStage.setTitle("Organizer");
         }
     }
-    
+
+    /**
+     * Loads xml file and unmarshal it to @EventListWrapper wrapper, then add events
+     * to @eventData.
+     *
+     * @param file the file we are opening
+     */
     public void loadEventDataFromFileXML(File file) {
         try {
             JAXBContext context = JAXBContext
@@ -277,8 +340,6 @@ public class MainApp extends Application {
 
             // Save the file path to the registry.
             setEventFilePath(file);
-            
-
 
         } catch (Exception e) { // catches ANY exception
             Alert alert = new Alert(AlertType.ERROR);
@@ -289,7 +350,12 @@ public class MainApp extends Application {
             alert.showAndWait();
         }
     }
-    
+
+    /**
+     * Wraps @eventData into @EventListWrapper wrapper, then marshal it to file.
+     *
+     * @param file the file we are saving to
+     */
     public void saveEventDataToFileXML(File file) {
         try {
             JAXBContext context = JAXBContext.newInstance(EventListWrapper.class);
@@ -305,6 +371,7 @@ public class MainApp extends Application {
 
             // Save the file path to the registry.
             setEventFilePath(file);
+
         } catch (Exception e) { // catches ANY exception
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("B³¹d");
@@ -314,7 +381,12 @@ public class MainApp extends Application {
             alert.showAndWait();
         }
     }
-    
+
+    /**
+     * Using @iCalendarFormatUtil
+     *
+     * @param file the file we are saving to
+     */
     public void saveEventDataToFileICS(File file){
 
         try {
